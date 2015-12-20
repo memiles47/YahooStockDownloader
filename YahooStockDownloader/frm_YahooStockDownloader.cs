@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace YahooStockDownloader
 {
-    public partial class Form1 : Form
+    public partial class btn_BrowsePath : Form
     {
-        public Form1()
+        public btn_BrowsePath()
         {
             InitializeComponent();
+        }
+
+        private void rb_Daily_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
