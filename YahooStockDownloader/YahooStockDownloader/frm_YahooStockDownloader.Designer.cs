@@ -42,7 +42,7 @@
             this.cmb_EndMonth = new System.Windows.Forms.ComboBox();
             this.nud_StartDay = new System.Windows.Forms.NumericUpDown();
             this.nud_EndDay = new System.Windows.Forms.NumericUpDown();
-            this.nud_StarYear = new System.Windows.Forms.NumericUpDown();
+            this.nud_StartYear = new System.Windows.Forms.NumericUpDown();
             this.nud_EndYear = new System.Windows.Forms.NumericUpDown();
             this.rb_Daily = new System.Windows.Forms.RadioButton();
             this.rb_Monthly = new System.Windows.Forms.RadioButton();
@@ -50,10 +50,11 @@
             this.btn_Download = new System.Windows.Forms.Button();
             this.tb_TickerSymbols = new System.Windows.Forms.TextBox();
             this.lbl_TickerSymbols = new System.Windows.Forms.Label();
+            this.dlg_FileBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_StartDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_EndDay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_StarYear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_StartYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_EndYear)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,19 +91,19 @@
             // dow30ToolStripMenuItem
             // 
             this.dow30ToolStripMenuItem.Name = "dow30ToolStripMenuItem";
-            this.dow30ToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.dow30ToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.dow30ToolStripMenuItem.Text = "Dow 30";
             // 
             // sP100ToolStripMenuItem
             // 
             this.sP100ToolStripMenuItem.Name = "sP100ToolStripMenuItem";
-            this.sP100ToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.sP100ToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.sP100ToolStripMenuItem.Text = "S&&P 100";
             // 
             // nasdaq100ToolStripMenuItem
             // 
             this.nasdaq100ToolStripMenuItem.Name = "nasdaq100ToolStripMenuItem";
-            this.nasdaq100ToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.nasdaq100ToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
             this.nasdaq100ToolStripMenuItem.Text = "Nasdaq 100";
             // 
             // lbl_StartDate
@@ -138,6 +139,7 @@
             this.btn_Browse.TabIndex = 6;
             this.btn_Browse.Text = "Browse";
             this.btn_Browse.UseVisualStyleBackColor = true;
+            this.btn_Browse.Click += new System.EventHandler(this.btn_Browse_Click);
             // 
             // cmb_StartMonth
             // 
@@ -225,23 +227,23 @@
             0,
             0});
             // 
-            // nud_StarYear
+            // nud_StartYear
             // 
-            this.nud_StarYear.Location = new System.Drawing.Point(512, 148);
-            this.nud_StarYear.Maximum = new decimal(new int[] {
+            this.nud_StartYear.Location = new System.Drawing.Point(512, 148);
+            this.nud_StartYear.Maximum = new decimal(new int[] {
             2100,
             0,
             0,
             0});
-            this.nud_StarYear.Minimum = new decimal(new int[] {
+            this.nud_StartYear.Minimum = new decimal(new int[] {
             1900,
             0,
             0,
             0});
-            this.nud_StarYear.Name = "nud_StarYear";
-            this.nud_StarYear.Size = new System.Drawing.Size(120, 26);
-            this.nud_StarYear.TabIndex = 11;
-            this.nud_StarYear.Value = new decimal(new int[] {
+            this.nud_StartYear.Name = "nud_StartYear";
+            this.nud_StartYear.Size = new System.Drawing.Size(120, 26);
+            this.nud_StartYear.TabIndex = 11;
+            this.nud_StartYear.Value = new decimal(new int[] {
             1900,
             0,
             0,
@@ -309,6 +311,7 @@
             this.btn_Download.TabIndex = 16;
             this.btn_Download.Text = "Download";
             this.btn_Download.UseVisualStyleBackColor = true;
+            this.btn_Download.Click += new System.EventHandler(this.btn_Download_Click);
             // 
             // tb_TickerSymbols
             // 
@@ -328,7 +331,7 @@
             this.lbl_TickerSymbols.TabIndex = 18;
             this.lbl_TickerSymbols.Text = "Ticker Symbols:";
             // 
-            // Form1
+            // frm_YahooStockDownloader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -340,7 +343,7 @@
             this.Controls.Add(this.rb_Monthly);
             this.Controls.Add(this.rb_Daily);
             this.Controls.Add(this.nud_EndYear);
-            this.Controls.Add(this.nud_StarYear);
+            this.Controls.Add(this.nud_StartYear);
             this.Controls.Add(this.nud_EndDay);
             this.Controls.Add(this.nud_StartDay);
             this.Controls.Add(this.cmb_EndMonth);
@@ -351,13 +354,13 @@
             this.Controls.Add(this.lbl_StartDate);
             this.Controls.Add(this.lbl_FolderPath);
             this.Controls.Add(this.mnuStrip);
-            this.Name = "Form1";
+            this.Name = "frm_YahooStockDownloader";
             this.Text = "Yahoo Stock Downloader";
             this.mnuStrip.ResumeLayout(false);
             this.mnuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_StartDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_EndDay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_StarYear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_StartYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_EndYear)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -380,7 +383,7 @@
         private System.Windows.Forms.ComboBox cmb_EndMonth;
         private System.Windows.Forms.NumericUpDown nud_StartDay;
         private System.Windows.Forms.NumericUpDown nud_EndDay;
-        private System.Windows.Forms.NumericUpDown nud_StarYear;
+        private System.Windows.Forms.NumericUpDown nud_StartYear;
         private System.Windows.Forms.NumericUpDown nud_EndYear;
         private System.Windows.Forms.RadioButton rb_Daily;
         private System.Windows.Forms.RadioButton rb_Monthly;
@@ -388,6 +391,7 @@
         private System.Windows.Forms.Button btn_Download;
         private System.Windows.Forms.TextBox tb_TickerSymbols;
         private System.Windows.Forms.Label lbl_TickerSymbols;
+        private System.Windows.Forms.FolderBrowserDialog dlg_FileBrowser;
     }
 }
 
