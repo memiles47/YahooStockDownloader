@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YahooStockDownloader", "YahooStockDownloader\YahooStockDownloader.csproj", "{05D2178C-C0E2-4187-923E-D9745E1C15CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YahooStockDownloader", "YahooStockDownloader\YahooStockDownloader.csproj", "{4EE5B0B9-E219-46F3-B6C0-4F1B62C800EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{05D2178C-C0E2-4187-923E-D9745E1C15CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05D2178C-C0E2-4187-923E-D9745E1C15CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05D2178C-C0E2-4187-923E-D9745E1C15CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05D2178C-C0E2-4187-923E-D9745E1C15CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EE5B0B9-E219-46F3-B6C0-4F1B62C800EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE5B0B9-E219-46F3-B6C0-4F1B62C800EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE5B0B9-E219-46F3-B6C0-4F1B62C800EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE5B0B9-E219-46F3-B6C0-4F1B62C800EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{05D2178C-C0E2-4187-923E-D9745E1C15CF}</ProjectGuid>
+    <ProjectGuid>{4EE5B0B9-E219-46F3-B6C0-4F1B62C800EA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YahooStockDownloader</RootNamespace>

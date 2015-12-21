@@ -16,7 +16,7 @@ namespace YahooStockDownloader
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new btn_BrowsePath());
+            Application.Run(new frm_YahooStockDownloader());
         }
     }
 }
