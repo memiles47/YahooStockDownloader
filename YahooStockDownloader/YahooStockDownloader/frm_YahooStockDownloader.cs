@@ -99,6 +99,51 @@ namespace YahooStockDownloader
                     MessageBox.Show("Please enter only commas and letters: " + Environment.NewLine + "GOOG,AMZN,MSFT");
                     return;
                 }
+
+                SetInterval();
+
+                string[] symbols = Helpers.SplitTickers(tickers);
+
+                foreach (string symbol in symbols)
+                {
+                    //Constructs Yahoo's URL to request data from
+                    string path = Path.Combine(folder, symbol + ".csv");
+                    string url = "http://real-chart.finance.yahoo.com/table.csv?s=" + symbol + "&a=" +
+                        cmb_StartMonth.SelectedIndex + "&b" + nud_StartDay.Value + "&c" + nud_StartYear.Value +
+                        "&d" + cmb_EndMonth.SelectedIndex + "&e" + nud_EndDay.Value + "&f" + nud_EndYear.Value +
+                        "&g" + interval + "&ignore.csv";
+
+                    try
+                    {
+                        Helpers.DownloadSymbolsToCSV(url, path, folder, symbol);
+                    }
+                    catch
+                    {
+
+                        MessageBox.Show("Could not locate symbol " + symbol);
+                    }
+                }
+
+                frm_FormList filelist = new frm_FormList(folder);
+                filelist.Show();
+            }
+        }
+
+        private void SetInterval()
+        {
+            if (rb_Daily.Checked)
+            {
+                interval = "d";
+            }
+
+            if (rb_Weekly.Checked)
+            {
+                interval = "w";
+            }
+
+            if (rb_Monthly.Checked)
+            {
+                interval = "m";
             }
         }
     }
