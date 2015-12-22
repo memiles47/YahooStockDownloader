@@ -92,40 +92,7 @@ namespace YahooStockDownloader
 
             if (DatesVerified())
             {
-                string tickers = tb_TickerSymbols.Text;
-                bool result = tickers.All((c => char.IsLetter(c) || c == ',' || c == ' '));
-                if (!result)
-                {
-                    MessageBox.Show("Please enter only commas and letters: " + Environment.NewLine + "GOOG,AMZN,MSFT");
-                    return;
-                }
-
-                SetInterval();
-
-                string[] symbols = Helpers.SplitTickers(tickers);
-
-                foreach (string symbol in symbols)
-                {
-                    //Constructs Yahoo's URL to request data from
-                    string path = Path.Combine(folder, symbol + ".csv");
-                    string url = "http://real-chart.finance.yahoo.com/table.csv?s=" + symbol + "&a=" +
-                        cmb_StartMonth.SelectedIndex + "&b" + nud_StartDay.Value + "&c" + nud_StartYear.Value +
-                        "&d" + cmb_EndMonth.SelectedIndex + "&e" + nud_EndDay.Value + "&f" + nud_EndYear.Value +
-                        "&g" + interval + "&ignore.csv";
-
-                    try
-                    {
-                        Helpers.DownloadSymbolsToCSV(url, path, folder, symbol);
-                    }
-                    catch
-                    {
-
-                        MessageBox.Show("Could not locate symbol " + symbol);
-                    }
-                }
-
-                frm_FormList filelist = new frm_FormList(folder);
-                filelist.Show();
+                backgroundWorker1.RunWorkerAsync();
             }
         }
 
@@ -145,6 +112,74 @@ namespace YahooStockDownloader
             {
                 interval = "m";
             }
+        }
+
+        private void dow30ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tb_TickerSymbols.Text += GetIndices.GetDow30();
+        }
+
+        private void sP100ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tb_TickerSymbols.Text += GetIndices.GetSP100();
+        }
+
+        private void nasdaq100ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tb_TickerSymbols.Text += GetIndices.Nasdaq100();
+        }
+
+        private void btn_ClearSymbols_Click(object sender, EventArgs e)
+        {
+            tb_TickerSymbols.Text = "";
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Download();
+        }
+
+        private void Download()
+        {
+            CheckForIllegalCrossThreadCalls = false;
+
+            string tickers = tb_TickerSymbols.Text;
+            bool result = tickers.All((c => char.IsLetter(c) || c == ',' || c == ' ' || c == '-'));
+            if (!result)
+            {
+                MessageBox.Show("Please enter only commas and letters: " + Environment.NewLine + "GOOG,AMZN,MSFT");
+                return;
+            }
+
+            SetInterval();
+
+            string[] symbols = Helpers.SplitTickers(tickers);
+
+            foreach (string symbol in symbols)
+            {
+                //Constructs Yahoo's URL to request data from
+                string path = Path.Combine(folder, symbol + ".csv");
+                string url = "http://real-chart.finance.yahoo.com/table.csv?s=" + symbol + "&a=" +
+                    cmb_StartMonth.SelectedIndex + "&b" + nud_StartDay.Value + "&c" + nud_StartYear.Value +
+                    "&d" + cmb_EndMonth.SelectedIndex + "&e" + nud_EndDay.Value + "&f" + nud_EndYear.Value +
+                    "&g" + interval + "&ignore.csv";
+
+                try
+                {
+                    Helpers.DownloadSymbolsToCSV(url, path, folder, symbol);
+                }
+                catch
+                {
+
+                    MessageBox.Show("Could not locate symbol " + symbol);
+                }
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            frm_FormList filelist = new frm_FormList(folder);
+            filelist.Show();
         }
     }
 }

@@ -51,6 +51,8 @@
             this.tb_TickerSymbols = new System.Windows.Forms.TextBox();
             this.lbl_TickerSymbols = new System.Windows.Forms.Label();
             this.dlg_FileBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.btn_ClearSymbols = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_StartDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_EndDay)).BeginInit();
@@ -91,20 +93,23 @@
             // dow30ToolStripMenuItem
             // 
             this.dow30ToolStripMenuItem.Name = "dow30ToolStripMenuItem";
-            this.dow30ToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.dow30ToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.dow30ToolStripMenuItem.Text = "Dow 30";
+            this.dow30ToolStripMenuItem.Click += new System.EventHandler(this.dow30ToolStripMenuItem_Click);
             // 
             // sP100ToolStripMenuItem
             // 
             this.sP100ToolStripMenuItem.Name = "sP100ToolStripMenuItem";
-            this.sP100ToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.sP100ToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.sP100ToolStripMenuItem.Text = "S&&P 100";
+            this.sP100ToolStripMenuItem.Click += new System.EventHandler(this.sP100ToolStripMenuItem_Click);
             // 
             // nasdaq100ToolStripMenuItem
             // 
             this.nasdaq100ToolStripMenuItem.Name = "nasdaq100ToolStripMenuItem";
-            this.nasdaq100ToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.nasdaq100ToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.nasdaq100ToolStripMenuItem.Text = "Nasdaq 100";
+            this.nasdaq100ToolStripMenuItem.Click += new System.EventHandler(this.nasdaq100ToolStripMenuItem_Click);
             // 
             // lbl_StartDate
             // 
@@ -126,7 +131,7 @@
             // 
             // tb_FolderPath
             // 
-            this.tb_FolderPath.Location = new System.Drawing.Point(166, 80);
+            this.tb_FolderPath.Location = new System.Drawing.Point(181, 80);
             this.tb_FolderPath.Name = "tb_FolderPath";
             this.tb_FolderPath.Size = new System.Drawing.Size(625, 26);
             this.tb_FolderPath.TabIndex = 5;
@@ -157,7 +162,7 @@
             "Oct",
             "Nov",
             "Dec"});
-            this.cmb_StartMonth.Location = new System.Drawing.Point(166, 148);
+            this.cmb_StartMonth.Location = new System.Drawing.Point(181, 148);
             this.cmb_StartMonth.Name = "cmb_StartMonth";
             this.cmb_StartMonth.Size = new System.Drawing.Size(121, 28);
             this.cmb_StartMonth.TabIndex = 7;
@@ -178,14 +183,14 @@
             "Oct",
             "Nov",
             "Dec"});
-            this.cmb_EndMonth.Location = new System.Drawing.Point(166, 223);
+            this.cmb_EndMonth.Location = new System.Drawing.Point(181, 223);
             this.cmb_EndMonth.Name = "cmb_EndMonth";
             this.cmb_EndMonth.Size = new System.Drawing.Size(121, 28);
             this.cmb_EndMonth.TabIndex = 8;
             // 
             // nud_StartDay
             // 
-            this.nud_StartDay.Location = new System.Drawing.Point(336, 148);
+            this.nud_StartDay.Location = new System.Drawing.Point(351, 148);
             this.nud_StartDay.Maximum = new decimal(new int[] {
             31,
             0,
@@ -207,7 +212,7 @@
             // 
             // nud_EndDay
             // 
-            this.nud_EndDay.Location = new System.Drawing.Point(336, 223);
+            this.nud_EndDay.Location = new System.Drawing.Point(351, 223);
             this.nud_EndDay.Maximum = new decimal(new int[] {
             31,
             0,
@@ -229,7 +234,7 @@
             // 
             // nud_StartYear
             // 
-            this.nud_StartYear.Location = new System.Drawing.Point(512, 148);
+            this.nud_StartYear.Location = new System.Drawing.Point(527, 148);
             this.nud_StartYear.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -251,7 +256,7 @@
             // 
             // nud_EndYear
             // 
-            this.nud_EndYear.Location = new System.Drawing.Point(512, 223);
+            this.nud_EndYear.Location = new System.Drawing.Point(527, 223);
             this.nud_EndYear.Maximum = new decimal(new int[] {
             2100,
             0,
@@ -275,7 +280,7 @@
             // 
             this.rb_Daily.AutoSize = true;
             this.rb_Daily.Checked = true;
-            this.rb_Daily.Location = new System.Drawing.Point(702, 159);
+            this.rb_Daily.Location = new System.Drawing.Point(717, 159);
             this.rb_Daily.Name = "rb_Daily";
             this.rb_Daily.Size = new System.Drawing.Size(68, 24);
             this.rb_Daily.TabIndex = 13;
@@ -286,7 +291,7 @@
             // rb_Monthly
             // 
             this.rb_Monthly.AutoSize = true;
-            this.rb_Monthly.Location = new System.Drawing.Point(702, 219);
+            this.rb_Monthly.Location = new System.Drawing.Point(717, 219);
             this.rb_Monthly.Name = "rb_Monthly";
             this.rb_Monthly.Size = new System.Drawing.Size(89, 24);
             this.rb_Monthly.TabIndex = 14;
@@ -296,7 +301,7 @@
             // rb_Weekly
             // 
             this.rb_Weekly.AutoSize = true;
-            this.rb_Weekly.Location = new System.Drawing.Point(702, 189);
+            this.rb_Weekly.Location = new System.Drawing.Point(717, 189);
             this.rb_Weekly.Name = "rb_Weekly";
             this.rb_Weekly.Size = new System.Drawing.Size(85, 24);
             this.rb_Weekly.TabIndex = 15;
@@ -315,27 +320,43 @@
             // 
             // tb_TickerSymbols
             // 
-            this.tb_TickerSymbols.Location = new System.Drawing.Point(166, 305);
+            this.tb_TickerSymbols.Location = new System.Drawing.Point(181, 305);
             this.tb_TickerSymbols.Multiline = true;
             this.tb_TickerSymbols.Name = "tb_TickerSymbols";
-            this.tb_TickerSymbols.Size = new System.Drawing.Size(466, 140);
+            this.tb_TickerSymbols.Size = new System.Drawing.Size(466, 196);
             this.tb_TickerSymbols.TabIndex = 17;
             this.tb_TickerSymbols.Text = "GOOG,AAPL,AMZN";
             // 
             // lbl_TickerSymbols
             // 
             this.lbl_TickerSymbols.AutoSize = true;
-            this.lbl_TickerSymbols.Location = new System.Drawing.Point(44, 305);
+            this.lbl_TickerSymbols.Location = new System.Drawing.Point(40, 305);
             this.lbl_TickerSymbols.Name = "lbl_TickerSymbols";
             this.lbl_TickerSymbols.Size = new System.Drawing.Size(119, 20);
             this.lbl_TickerSymbols.TabIndex = 18;
             this.lbl_TickerSymbols.Text = "Ticker Symbols:";
             // 
+            // btn_ClearSymbols
+            // 
+            this.btn_ClearSymbols.Location = new System.Drawing.Point(44, 337);
+            this.btn_ClearSymbols.Name = "btn_ClearSymbols";
+            this.btn_ClearSymbols.Size = new System.Drawing.Size(127, 30);
+            this.btn_ClearSymbols.TabIndex = 19;
+            this.btn_ClearSymbols.Text = "Clear Symbols";
+            this.btn_ClearSymbols.UseVisualStyleBackColor = true;
+            this.btn_ClearSymbols.Click += new System.EventHandler(this.btn_ClearSymbols_Click);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // frm_YahooStockDownloader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1007, 504);
+            this.ClientSize = new System.Drawing.Size(1007, 528);
+            this.Controls.Add(this.btn_ClearSymbols);
             this.Controls.Add(this.lbl_TickerSymbols);
             this.Controls.Add(this.tb_TickerSymbols);
             this.Controls.Add(this.btn_Download);
@@ -392,6 +413,8 @@
         private System.Windows.Forms.TextBox tb_TickerSymbols;
         private System.Windows.Forms.Label lbl_TickerSymbols;
         private System.Windows.Forms.FolderBrowserDialog dlg_FileBrowser;
+        private System.Windows.Forms.Button btn_ClearSymbols;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

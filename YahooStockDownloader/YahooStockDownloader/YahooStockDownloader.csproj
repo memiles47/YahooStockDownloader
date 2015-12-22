@@ -58,6 +58,7 @@
     <Compile Include="frm_YahooStockDownloader.Designer.cs">
       <DependentUpon>frm_YahooStockDownloader.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetIndices.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
